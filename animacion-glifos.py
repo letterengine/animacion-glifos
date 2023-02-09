@@ -7,6 +7,7 @@ from fontTools.ttLib import TTFont
 # Canvas
 w, h = 1920, 1080
 bg = (0.5, 0, 0.5)
+colorFuente = (1, 1, 1)
 
 # Rutas
 usuario = os.path.expanduser('~')
@@ -21,12 +22,14 @@ glifos = otf.getGlyphOrder()
 
 for glifo in glifos:
     newPage(w, h)
-    with savedState(): fill(*bg), rect(0, 0, w, h)
-    g = FormattedString('', font=fuente, fill=1, fontSize=400, align='center')
+    with savedState():
+        fill(*bg), rect(0, 0, w, h)
+    g = FormattedString('', font=fuente, fill=colorFuente,
+                        fontSize=400, align='center')
     g.appendGlyph(glifo)
     text(g, (w/2, h/2 + g.fontDescender()))
 
 # Guardado
 
-gif =  os.path.join(escritorio, 'glifos.gif')   
+gif = os.path.join(escritorio, 'glifos.gif')
 saveImage(gif)
